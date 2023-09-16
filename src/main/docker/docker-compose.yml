@@ -1,0 +1,30 @@
+version: '3.8'
+
+name: resident-service-container
+services:
+  app:
+    image: 'quarkus/resident-service'
+    container_name: "resident-app"
+    ports:
+      - '8080:8080'
+    links:
+      - "mysql-db"
+    environment:
+      - DB_USER=root
+      - DB_PWD=root
+      - DB_URL=jdbc:mysql://mysql-db/resident
+
+  mysql-db:
+    image: mysql:8.0
+    container_name: "mysql-db"
+    environment:
+      - MYSQL_DATABASE=resident
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - '3306:3306'
+    volumes:
+      - resident:/var/lib/mysql
+      - ./../../../db/sql/create_resident_schemas.sql:/docker-entrypoint-initdb.d/create_resident_schemas.sql
+volumes:
+  resident:
+    driver: local
