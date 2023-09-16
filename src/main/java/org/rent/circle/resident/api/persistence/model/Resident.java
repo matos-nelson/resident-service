@@ -1,11 +1,16 @@
 package org.rent.circle.resident.api.persistence.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import org.rent.circle.resident.api.persistence.BaseModel;
@@ -34,4 +39,8 @@ public class Resident extends BaseModel {
 
     @Column(name = "phone")
     private String phone;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "resident_id", referencedColumnName = "id", nullable = false)
+    private List<Vehicle> vehicles;
 }
