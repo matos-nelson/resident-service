@@ -98,4 +98,44 @@ public class ResidentServiceTest {
         // Assert
         assertEquals(residentDto, result);
     }
+
+    @Test
+    public void getResidentByEmail_WhenResidentWithGivenIdCantBeFound_ShouldReturnNull() {
+        // Arrange
+        String residentEmail = "resident@email.com";
+        when(residentRepository.findByEmail(residentEmail)).thenReturn(null);
+        when(residentMapper.toDto(null)).thenReturn(null);
+
+        // Act
+        ResidentDto result = residentService.getResidentByEmail(residentEmail);
+
+        // Assert
+        assertNull(result);
+    }
+
+    @Test
+    public void getResidentByEmail_WhenCalled_ShouldReturnResident() {
+        // Arrange
+        String residentEmail = "resident@email.com";
+
+        Resident resident = new Resident();
+        resident.setId(100L);
+        resident.setEmail(residentEmail);
+
+        ResidentDto residentDto = ResidentDto.builder()
+            .addressId(1L)
+            .fullName("My Resident")
+            .email("resident@email.com")
+            .phone("1234567890")
+            .build();
+
+        when(residentRepository.findByEmail(residentEmail)).thenReturn(resident);
+        when(residentMapper.toDto(resident)).thenReturn(residentDto);
+
+        // Act
+        ResidentDto result = residentService.getResidentByEmail(residentEmail);
+
+        // Assert
+        assertEquals(residentDto, result);
+    }
 }

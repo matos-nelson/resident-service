@@ -35,4 +35,9 @@ public class ResidentService {
         Resident resident = residentRepository.findById(id);
         return residentMapper.toDto(resident);
     }
+
+    public ResidentDto getResidentByEmail(String email) {
+        Resident resident = residentRepository.findByEmail(email);
+        return residentMapper.toDto(resident);
+    }
 }
