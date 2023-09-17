@@ -6,7 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.rent.circle.resident.api.dto.ResidentDto;
 import org.rent.circle.resident.api.dto.SaveResidentInfoDto;
@@ -215,5 +217,77 @@ public class ResidentMapperTest {
         assertEquals(vehicle.getYear(), resident.getVehicles().get(0).getYear());
         assertEquals(vehicle.getColor(), resident.getVehicles().get(0).getColor());
         assertEquals(vehicle.getLicenceNumber(), resident.getVehicles().get(0).getLicenceNumber());
+    }
+
+    @Test
+    public void update_WhenAResidentHasVehicleAndGivenUpdateResidentDtoHasNoVehicles_ShouldMap() {
+        // Arrange
+        Vehicle vehicle = new Vehicle();
+        vehicle.setMake("Make");
+        vehicle.setModel("Model");
+        vehicle.setYear(1000);
+        vehicle.setColor("Color");
+        vehicle.setLicenceNumber("123-ABC");
+
+        Resident resident = new Resident();
+        resident.setVehicles(Collections.singletonList(vehicle));
+
+        UpdateResidentDto updateResidentDto = UpdateResidentDto.builder().build();
+
+        // Act
+        residentMapper.update(updateResidentDto, resident);
+
+        // Assert
+        assertNotNull(resident);
+        assertNull(resident.getVehicles());
+    }
+
+    @Test
+    public void update_WhenAResidentHasMoreVehicleThanGivenUpdateResidentDtoVehicles_ShouldMap() {
+        // Arrange
+        Vehicle vehicle1 = new Vehicle();
+        vehicle1.setMake("Make");
+        vehicle1.setModel("Model");
+        vehicle1.setYear(1000);
+        vehicle1.setColor("Color");
+        vehicle1.setLicenceNumber("123-ABC");
+
+        Vehicle vehicle2 = new Vehicle();
+        vehicle2.setMake("Make");
+        vehicle2.setModel("Model");
+        vehicle2.setYear(1000);
+        vehicle2.setColor("Color");
+        vehicle2.setLicenceNumber("123-ABC");
+
+        List<Vehicle> vehicles = new ArrayList<>();
+        vehicles.add(vehicle1);
+        vehicles.add(vehicle2);
+
+        Resident resident = new Resident();
+        resident.setVehicles(vehicles);
+
+        VehicleDto vehicleDto = VehicleDto.builder()
+            .make("Updated")
+            .model("Model")
+            .year(2020)
+            .color("Silver")
+            .licenceNumber("XXX-999")
+            .build();
+
+        UpdateResidentDto updateResidentDto = UpdateResidentDto.builder()
+            .vehicles(Collections.singletonList(vehicleDto))
+            .build();
+
+        // Act
+        residentMapper.update(updateResidentDto, resident);
+
+        // Assert
+        assertNotNull(resident);
+        assertEquals(1, resident.getVehicles().size());
+        assertEquals(vehicleDto.getMake(), resident.getVehicles().get(0).getMake());
+        assertEquals(vehicleDto.getModel(), resident.getVehicles().get(0).getModel());
+        assertEquals(vehicleDto.getYear(), resident.getVehicles().get(0).getYear());
+        assertEquals(vehicleDto.getColor(), resident.getVehicles().get(0).getColor());
+        assertEquals(vehicleDto.getLicenceNumber(), resident.getVehicles().get(0).getLicenceNumber());
     }
 }
