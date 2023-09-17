@@ -94,7 +94,7 @@ public class ResidentMapperTest {
     }
 
     @Test
-    public void toModel_WhenGivenAResident_ShouldMap() {
+    public void toDto_WhenGivenAResident_ShouldMap() {
         // Arrange
         Resident resident = new Resident();
         resident.setAddressId(1L);
@@ -108,6 +108,7 @@ public class ResidentMapperTest {
 
         // Assert
         assertNotNull(result);
+        assertEquals(resident.getId(), result.getId());
         assertEquals(resident.getAddressId(), result.getAddressId());
         assertEquals(resident.getPreferredName(), result.getPreferredName());
         assertEquals(resident.getFullName(), result.getFullName());

@@ -14,6 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ResidentDto {
 
+    private Long id;
     private Long addressId;
     private String preferredName;
     private String fullName;

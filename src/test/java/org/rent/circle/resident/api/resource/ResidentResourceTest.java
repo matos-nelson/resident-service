@@ -92,7 +92,8 @@ public class ResidentResourceTest {
             .get("/100")
             .then()
             .statusCode(HttpStatus.SC_OK)
-            .body("addressId", is(1),
+            .body("id", is(100),
+                "addressId", is(1),
                 "fullName", is("First Resident"),
                 "email", is("firstresident@email.com"),
                 "phone", is("1234445555"),
@@ -128,7 +129,8 @@ public class ResidentResourceTest {
             .get("/email/firstresident@email.com")
             .then()
             .statusCode(HttpStatus.SC_OK)
-            .body("addressId", is(1),
+            .body("id", is(100),
+                "addressId", is(1),
                 "fullName", is("First Resident"),
                 "email", is("firstresident@email.com"),
                 "phone", is("1234445555"),
