@@ -7,7 +7,8 @@ CREATE TABLE IF NOT EXISTS resident (
   phone varchar(10) COLLATE utf8mb4_general_ci NOT NULL,
   created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  KEY address_id_idx (address_id)
+  KEY address_id_idx (address_id),
+  INDEX email_idx (email)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS vehicle (
