@@ -10,6 +10,7 @@ import java.util.Collections;
 import org.junit.jupiter.api.Test;
 import org.rent.circle.resident.api.dto.ResidentDto;
 import org.rent.circle.resident.api.dto.SaveResidentInfoDto;
+import org.rent.circle.resident.api.dto.UpdateResidentDto;
 import org.rent.circle.resident.api.dto.VehicleDto;
 import org.rent.circle.resident.api.persistence.model.Resident;
 import org.rent.circle.resident.api.persistence.model.Vehicle;
@@ -115,7 +116,7 @@ public class ResidentMapperTest {
     }
 
     @Test
-    public void toDto_WhenGivenAResident_ShouldMap() {
+    public void toDto_WhenGivenAResidentWithVehicles_ShouldMap() {
         // Arrange
         Vehicle vehicle = new Vehicle();
         vehicle.setMake("Make");
@@ -138,5 +139,80 @@ public class ResidentMapperTest {
         assertEquals(vehicle.getYear(), result.getVehicles().get(0).getYear());
         assertEquals(vehicle.getColor(), result.getVehicles().get(0).getColor());
         assertEquals(vehicle.getLicenceNumber(), result.getVehicles().get(0).getLicenceNumber());
+    }
+
+    @Test
+    public void update_WhenGivenNullUpdateResidentDto_ShouldReturnNull() {
+        // Arrange
+        Resident resident = new Resident();
+        resident.setAddressId(1L);
+        resident.setPreferredName("Preferred Name");
+        resident.setFullName("Simple Test");
+        resident.setEmail("simpletest@email.com");
+        resident.setPhone("1234567890");
+
+        // Act
+        residentMapper.update(null, resident);
+
+        // Assert
+        assertNotNull(resident);
+    }
+
+    @Test
+    public void update_WhenGivenAnUpdateResidentDto_ShouldMap() {
+        // Arrange
+        Resident resident = new Resident();
+        resident.setAddressId(1L);
+        resident.setPreferredName("Preferred Name");
+        resident.setFullName("Simple Test");
+        resident.setEmail("simpletest@email.com");
+        resident.setPhone("1234567890");
+
+        UpdateResidentDto updateResident = UpdateResidentDto.builder()
+            .addressId(3L)
+            .preferredName("Updated Name")
+            .phone("9876543210")
+            .build();
+
+        // Act
+        residentMapper.update(updateResident, resident);
+
+        // Assert
+        assertNotNull(resident);
+        assertEquals(updateResident.getAddressId(), resident.getAddressId());
+        assertEquals(updateResident.getPreferredName(), resident.getPreferredName());
+        assertEquals("Simple Test", resident.getFullName());
+        assertEquals("simpletest@email.com", resident.getEmail());
+        assertEquals(updateResident.getPhone(), resident.getPhone());
+    }
+
+    @Test
+    public void update_WhenGivenAnUpdateResidentDtoWithVehicles_ShouldMap() {
+        // Arrange
+        VehicleDto vehicle = VehicleDto.builder()
+            .make("Make")
+            .model("Model")
+            .year(1000)
+            .color("Color")
+            .licenceNumber("123-ABC")
+            .build();
+
+        UpdateResidentDto updateResidentDto = UpdateResidentDto.builder()
+            .vehicles(Collections.singletonList(vehicle))
+            .build();
+
+        Resident resident = new Resident();
+
+        // Act
+        residentMapper.update(updateResidentDto, resident);
+
+        // Assert
+        assertNotNull(resident);
+        assertEquals(1, resident.getVehicles().size());
+        assertEquals(vehicle.getMake(), resident.getVehicles().get(0).getMake());
+        assertEquals(vehicle.getModel(), resident.getVehicles().get(0).getModel());
+        assertEquals(vehicle.getYear(), resident.getVehicles().get(0).getYear());
+        assertEquals(vehicle.getColor(), resident.getVehicles().get(0).getColor());
+        assertEquals(vehicle.getLicenceNumber(), resident.getVehicles().get(0).getLicenceNumber());
     }
 }
