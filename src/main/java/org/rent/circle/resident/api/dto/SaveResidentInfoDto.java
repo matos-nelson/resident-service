@@ -27,6 +27,7 @@ public class SaveResidentInfoDto {
     private String fullName;
 
     @Email
+    @NotNull
     private String email;
 
     @NotNull
