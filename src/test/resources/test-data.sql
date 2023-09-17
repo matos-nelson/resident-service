@@ -1,0 +1,2 @@
+insert into resident(id, address_id, full_name, email, phone) values (100, 1, 'First Resident', 'firstresident@email.com', '1234445555');
+insert into vehicle(id, resident_id, make, model, year_made, color, licence_num) values (200, 100, 'Nissan', 'Rogue', 2000, 'Blue', 'AAA-123');
