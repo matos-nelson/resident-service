@@ -69,7 +69,7 @@ public class ResidentResourceTest {
     }
 
     @Test
-    public void GET_WhenResidentCantBeFound_ShouldReturnNoContent() {
+    public void GET_WhenResidentCantBeFoundById_ShouldReturnNoContent() {
         // Arrange
 
         // Act
@@ -82,7 +82,7 @@ public class ResidentResourceTest {
     }
 
     @Test
-    public void GET_WhenResidentIsFound_ShouldReturnResident() {
+    public void GET_WhenResidentIsFoundById_ShouldReturnResident() {
         // Arrange
 
         // Act
@@ -90,6 +90,42 @@ public class ResidentResourceTest {
         given()
             .when()
             .get("/100")
+            .then()
+            .statusCode(HttpStatus.SC_OK)
+            .body("addressId", is(1),
+                "fullName", is("First Resident"),
+                "email", is("firstresident@email.com"),
+                "phone", is("1234445555"),
+                "vehicles", is(Matchers.hasSize(1)),
+                "vehicles[0].make", is("Nissan"),
+                "vehicles[0].model", is("Rogue"),
+                "vehicles[0].year", is(2000),
+                "vehicles[0].color", is("Blue"),
+                "vehicles[0].licenceNumber", is("AAA-123"));
+    }
+
+    @Test
+    public void GET_WhenResidentCantBeFoundByEmail_ShouldReturnNoContent() {
+        // Arrange
+
+        // Act
+        // Assert
+        given()
+            .when()
+            .get("/email/notfound@email.com")
+            .then()
+            .statusCode(HttpStatus.SC_NO_CONTENT);
+    }
+
+    @Test
+    public void GET_WhenResidentIsFoundByEmail_ShouldReturnResident() {
+        // Arrange
+
+        // Act
+        // Assert
+        given()
+            .when()
+            .get("/email/firstresident@email.com")
             .then()
             .statusCode(HttpStatus.SC_OK)
             .body("addressId", is(1),
