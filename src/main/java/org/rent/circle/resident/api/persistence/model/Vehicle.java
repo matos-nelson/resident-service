@@ -12,7 +12,7 @@ import lombok.ToString;
 import org.rent.circle.resident.api.persistence.BaseModel;
 
 @Entity
-@Table(name = "vehicle")
+@Table(name = "resident_vehicle")
 @Setter
 @Getter
 @ToString

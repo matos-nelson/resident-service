@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS resident (
   INDEX email_idx (email)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-CREATE TABLE IF NOT EXISTS vehicle (
+CREATE TABLE IF NOT EXISTS resident_vehicle (
   id bigint PRIMARY KEY AUTO_INCREMENT,
   resident_id bigint NOT NULL,
   make varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
