@@ -15,9 +15,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UpdateResidentDto {
 
-    @NotNull
-    private Long addressId;
-
     private String preferredName;
 
     @NotNull

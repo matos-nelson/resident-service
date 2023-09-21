@@ -172,7 +172,6 @@ public class ResidentMapperTest {
         resident.setPhone("1234567890");
 
         UpdateResidentDto updateResident = UpdateResidentDto.builder()
-            .addressId(3L)
             .preferredName("Updated Name")
             .phone("9876543210")
             .build();
@@ -182,7 +181,6 @@ public class ResidentMapperTest {
 
         // Assert
         assertNotNull(resident);
-        assertEquals(updateResident.getAddressId(), resident.getAddressId());
         assertEquals(updateResident.getPreferredName(), resident.getPreferredName());
         assertEquals("Simple Test", resident.getFullName());
         assertEquals("simpletest@email.com", resident.getEmail());

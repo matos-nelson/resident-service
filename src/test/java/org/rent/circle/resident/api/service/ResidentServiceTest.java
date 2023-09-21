@@ -168,7 +168,6 @@ public class ResidentServiceTest {
         resident.setId(residentId);
 
         UpdateResidentDto updateResidentInfo = UpdateResidentDto.builder()
-            .addressId(3L)
             .preferredName("Updated Name")
             .phone("9876543210")
             .build();
