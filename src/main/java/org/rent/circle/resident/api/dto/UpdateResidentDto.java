@@ -1,5 +1,6 @@
 package org.rent.circle.resident.api.dto;
 
+import jakarta.validation.constraints.NotNull;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,13 +13,12 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResidentDto {
+public class UpdateResidentDto {
 
-    private Long id;
-    private Long addressId;
     private String preferredName;
-    private String fullName;
-    private String email;
+
+    @NotNull
     private String phone;
+
     private List<VehicleDto> vehicles;
 }

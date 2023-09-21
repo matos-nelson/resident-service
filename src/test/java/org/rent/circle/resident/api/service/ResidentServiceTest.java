@@ -3,6 +3,9 @@ package org.rent.circle.resident.api.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import io.quarkus.test.junit.QuarkusTest;
@@ -10,8 +13,10 @@ import io.quarkus.test.junit.mockito.InjectMock;
 import jakarta.inject.Inject;
 import java.util.Collections;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.rent.circle.resident.api.dto.ResidentDto;
 import org.rent.circle.resident.api.dto.SaveResidentInfoDto;
+import org.rent.circle.resident.api.dto.UpdateResidentDto;
 import org.rent.circle.resident.api.dto.VehicleDto;
 import org.rent.circle.resident.api.persistence.model.Resident;
 import org.rent.circle.resident.api.persistence.repository.ResidentRepository;
@@ -137,5 +142,42 @@ public class ResidentServiceTest {
 
         // Assert
         assertEquals(residentDto, result);
+    }
+
+    @Test
+    public void updateResident_WhenResidentIsNotFound_ShouldReturnNotUpdate() {
+        // Arrange
+        long residentId = 1L;
+        UpdateResidentDto updateResidentDto = UpdateResidentDto.builder().build();
+        when(residentRepository.findById(residentId)).thenReturn(null);
+
+        // Act
+        residentService.updateResidentInfo(residentId, updateResidentDto);
+
+        // Assert
+        verify(residentMapper, never()).update(updateResidentDto, null);
+        verify(residentRepository, never()).persist(Mockito.any(Resident.class));
+    }
+
+    @Test
+    public void updateResidentInfo_WhenCalled_ShouldUpdate() {
+        // Arrange
+        Long residentId = 1L;
+
+        Resident resident = new Resident();
+        resident.setId(residentId);
+
+        UpdateResidentDto updateResidentInfo = UpdateResidentDto.builder()
+            .preferredName("Updated Name")
+            .phone("9876543210")
+            .build();
+        when(residentRepository.findById(residentId)).thenReturn(resident);
+
+        // Act
+        residentService.updateResidentInfo(residentId, updateResidentInfo);
+
+        // Assert
+        verify(residentMapper, times(1)).update(updateResidentInfo, resident);
+        verify(residentRepository, times(1)).persist(resident);
     }
 }

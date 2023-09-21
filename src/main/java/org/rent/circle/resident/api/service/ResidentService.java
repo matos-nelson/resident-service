@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.rent.circle.resident.api.dto.ResidentDto;
 import org.rent.circle.resident.api.dto.SaveResidentInfoDto;
+import org.rent.circle.resident.api.dto.UpdateResidentDto;
 import org.rent.circle.resident.api.persistence.model.Resident;
 import org.rent.circle.resident.api.persistence.repository.ResidentRepository;
 import org.rent.circle.resident.api.service.mapper.ResidentMapper;
@@ -39,5 +40,16 @@ public class ResidentService {
     public ResidentDto getResidentByEmail(String email) {
         Resident resident = residentRepository.findByEmail(email);
         return residentMapper.toDto(resident);
+    }
+
+    @Transactional
+    public void updateResidentInfo(long residentId, UpdateResidentDto updateResidentInfo) {
+        Resident resident = residentRepository.findById(residentId);
+        if (resident == null) {
+            return;
+        }
+
+        residentMapper.update(updateResidentInfo, resident);
+        residentRepository.persist(resident);
     }
 }
