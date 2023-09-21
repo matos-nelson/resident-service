@@ -20,5 +20,6 @@ public class UpdateResidentDto {
     @NotNull
     private String phone;
 
+    @NotNull
     private List<VehicleDto> vehicles;
 }
