@@ -8,15 +8,15 @@ services:
     ports:
       - '8080:8080'
     links:
-      - "mysql-db"
+      - "resident-db"
     environment:
       - DB_USER=root
       - DB_PWD=root
       - DB_URL=jdbc:mysql://mysql-db/resident
 
-  mysql-db:
+  resident-db:
     image: mysql:8.0
-    container_name: "mysql-db"
+    container_name: "resident-db"
     environment:
       - MYSQL_DATABASE=resident
       - MYSQL_ROOT_PASSWORD=root
