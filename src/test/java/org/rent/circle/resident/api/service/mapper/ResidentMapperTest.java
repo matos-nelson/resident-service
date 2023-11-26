@@ -65,7 +65,7 @@ public class ResidentMapperTest {
             .model("Model")
             .year(1000)
             .color("Color")
-            .licenceNumber("123-ABC")
+            .licenseNumber("123-ABC")
             .build();
         SaveResidentInfoDto saveResidentInfo = SaveResidentInfoDto.builder()
             .vehicles(Collections.singletonList(vehicle))
@@ -81,7 +81,7 @@ public class ResidentMapperTest {
         assertEquals(vehicle.getModel(), result.getVehicles().get(0).getModel());
         assertEquals(vehicle.getYear(), result.getVehicles().get(0).getYear());
         assertEquals(vehicle.getColor(), result.getVehicles().get(0).getColor());
-        assertEquals(vehicle.getLicenceNumber(), result.getVehicles().get(0).getLicenceNumber());
+        assertEquals(vehicle.getLicenseNumber(), result.getVehicles().get(0).getLicenseNumber());
     }
 
     @Test
@@ -126,7 +126,7 @@ public class ResidentMapperTest {
         vehicle.setModel("Model");
         vehicle.setYear(1000);
         vehicle.setColor("Color");
-        vehicle.setLicenceNumber("123-ABC");
+        vehicle.setLicenseNumber("123-ABC");
 
         Resident resident = new Resident();
         resident.setVehicles(Collections.singletonList(vehicle));
@@ -141,7 +141,7 @@ public class ResidentMapperTest {
         assertEquals(vehicle.getModel(), result.getVehicles().get(0).getModel());
         assertEquals(vehicle.getYear(), result.getVehicles().get(0).getYear());
         assertEquals(vehicle.getColor(), result.getVehicles().get(0).getColor());
-        assertEquals(vehicle.getLicenceNumber(), result.getVehicles().get(0).getLicenceNumber());
+        assertEquals(vehicle.getLicenseNumber(), result.getVehicles().get(0).getLicenseNumber());
     }
 
     @Test
@@ -195,7 +195,7 @@ public class ResidentMapperTest {
             .model("Model")
             .year(1000)
             .color("Color")
-            .licenceNumber("123-ABC")
+            .licenseNumber("123-ABC")
             .build();
 
         UpdateResidentDto updateResidentDto = UpdateResidentDto.builder()
@@ -214,7 +214,7 @@ public class ResidentMapperTest {
         assertEquals(vehicle.getModel(), resident.getVehicles().get(0).getModel());
         assertEquals(vehicle.getYear(), resident.getVehicles().get(0).getYear());
         assertEquals(vehicle.getColor(), resident.getVehicles().get(0).getColor());
-        assertEquals(vehicle.getLicenceNumber(), resident.getVehicles().get(0).getLicenceNumber());
+        assertEquals(vehicle.getLicenseNumber(), resident.getVehicles().get(0).getLicenseNumber());
     }
 
     @Test
@@ -225,7 +225,7 @@ public class ResidentMapperTest {
         vehicle.setModel("Model");
         vehicle.setYear(1000);
         vehicle.setColor("Color");
-        vehicle.setLicenceNumber("123-ABC");
+        vehicle.setLicenseNumber("123-ABC");
 
         Resident resident = new Resident();
         resident.setVehicles(Collections.singletonList(vehicle));
@@ -248,14 +248,14 @@ public class ResidentMapperTest {
         vehicle1.setModel("Model");
         vehicle1.setYear(1000);
         vehicle1.setColor("Color");
-        vehicle1.setLicenceNumber("123-ABC");
+        vehicle1.setLicenseNumber("123-ABC");
 
         Vehicle vehicle2 = new Vehicle();
         vehicle2.setMake("Make");
         vehicle2.setModel("Model");
         vehicle2.setYear(1000);
         vehicle2.setColor("Color");
-        vehicle2.setLicenceNumber("123-ABC");
+        vehicle2.setLicenseNumber("123-ABC");
 
         List<Vehicle> vehicles = new ArrayList<>();
         vehicles.add(vehicle1);
@@ -269,7 +269,7 @@ public class ResidentMapperTest {
             .model("Model")
             .year(2020)
             .color("Silver")
-            .licenceNumber("XXX-999")
+            .licenseNumber("XXX-999")
             .build();
 
         UpdateResidentDto updateResidentDto = UpdateResidentDto.builder()
@@ -286,6 +286,6 @@ public class ResidentMapperTest {
         assertEquals(vehicleDto.getModel(), resident.getVehicles().get(0).getModel());
         assertEquals(vehicleDto.getYear(), resident.getVehicles().get(0).getYear());
         assertEquals(vehicleDto.getColor(), resident.getVehicles().get(0).getColor());
-        assertEquals(vehicleDto.getLicenceNumber(), resident.getVehicles().get(0).getLicenceNumber());
+        assertEquals(vehicleDto.getLicenseNumber(), resident.getVehicles().get(0).getLicenseNumber());
     }
 }
