@@ -1,5 +1,6 @@
 package org.rent.circle.resident.api.resource;
 
+import io.quarkus.security.Authenticated;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -20,6 +21,7 @@ import org.rent.circle.resident.api.dto.UpdateResidentDto;
 import org.rent.circle.resident.api.service.ResidentService;
 
 @AllArgsConstructor
+@Authenticated
 @Path("/resident")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
@@ -47,7 +49,8 @@ public class ResidentResource {
 
     @PATCH
     @Path("/{id}")
-    public void updateResident(@NotNull @PathParam("id") long residentId, @NotNull @Valid UpdateResidentDto updateResidentInfo) {
+    public void updateResident(@NotNull @PathParam("id") long residentId,
+        @NotNull @Valid UpdateResidentDto updateResidentInfo) {
         residentService.updateResidentInfo(residentId, updateResidentInfo);
     }
 }

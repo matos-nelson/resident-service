@@ -11,6 +11,7 @@ import java.util.Collections;
 import org.apache.http.HttpStatus;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
+import org.rent.circle.resident.api.annotation.AuthUser;
 import org.rent.circle.resident.api.dto.SaveResidentInfoDto;
 import org.rent.circle.resident.api.dto.UpdateResidentDto;
 import org.rent.circle.resident.api.dto.VehicleDto;
@@ -18,6 +19,7 @@ import org.rent.circle.resident.api.dto.VehicleDto;
 @QuarkusTest
 @TestHTTPEndpoint(ResidentResource.class)
 @QuarkusTestResource(H2DatabaseTestResource.class)
+@AuthUser
 public class ResidentResourceTest {
 
     @Test
@@ -28,7 +30,7 @@ public class ResidentResourceTest {
             .model("Model")
             .year(1000)
             .color("Color")
-            .licenceNumber("123-ABC")
+            .licenseNumber("123-ABC")
             .build();
         SaveResidentInfoDto saveResidentInfoDto = SaveResidentInfoDto.builder()
             .addressId(1L)
@@ -103,7 +105,7 @@ public class ResidentResourceTest {
                 "vehicles[0].model", is("Rogue"),
                 "vehicles[0].year", is(2000),
                 "vehicles[0].color", is("Blue"),
-                "vehicles[0].licenceNumber", is("AAA-123"));
+                "vehicles[0].licenseNumber", is("AAA-123"));
     }
 
     @Test
@@ -140,7 +142,7 @@ public class ResidentResourceTest {
                 "vehicles[0].model", is("Rogue"),
                 "vehicles[0].year", is(2000),
                 "vehicles[0].color", is("Blue"),
-                "vehicles[0].licenceNumber", is("AAA-123"));
+                "vehicles[0].licenseNumber", is("AAA-123"));
     }
 
     @Test
@@ -170,7 +172,7 @@ public class ResidentResourceTest {
             .model("Model")
             .year(1000)
             .color("Color")
-            .licenceNumber("123-ABC")
+            .licenseNumber("123-ABC")
             .build();
         UpdateResidentDto updateResidentDto = UpdateResidentDto.builder()
             .phone("9999999999")
@@ -204,6 +206,6 @@ public class ResidentResourceTest {
                 "vehicles[0].model", is(vehicle.getModel()),
                 "vehicles[0].year", is(vehicle.getYear()),
                 "vehicles[0].color", is(vehicle.getColor()),
-                "vehicles[0].licenceNumber", is(vehicle.getLicenceNumber()));
+                "vehicles[0].licenseNumber", is(vehicle.getLicenseNumber()));
     }
 }

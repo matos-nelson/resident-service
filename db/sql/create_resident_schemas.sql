@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS resident_vehicle (
   model varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
   year_made SMALLINT DEFAULT NULL,
   color varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  licence_num varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  license_num varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   KEY resident_id_idx (resident_id)

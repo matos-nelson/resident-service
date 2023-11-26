@@ -34,8 +34,8 @@ public class Vehicle extends BaseModel {
     @Column(name = "color")
     private String color;
 
-    @Column(name = "licence_num")
-    private String licenceNumber;
+    @Column(name = "license_num")
+    private String licenseNumber;
 
     @Column(name = "resident_id", insertable = false, updatable = false, nullable = false)
     private Long resident_id;

@@ -42,7 +42,7 @@ public class ResidentServiceTest {
             .model("Model")
             .year(1000)
             .color("Color")
-            .licenceNumber("123-ABC")
+            .licenseNumber("123-ABC")
             .build();
         SaveResidentInfoDto saveResidentInfo = SaveResidentInfoDto.builder()
             .addressId(1L)
