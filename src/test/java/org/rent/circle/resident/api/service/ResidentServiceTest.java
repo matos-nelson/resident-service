@@ -45,7 +45,7 @@ public class ResidentServiceTest {
             .licenseNumber("123-ABC")
             .build();
         SaveResidentInfoDto saveResidentInfo = SaveResidentInfoDto.builder()
-            .addressId(1L)
+            .propertyId(1L)
             .preferredName("Preferred Name")
             .fullName("Simple Test")
             .email("simpletest@email.com")
@@ -88,7 +88,7 @@ public class ResidentServiceTest {
         resident.setId(residentId);
 
         ResidentDto residentDto = ResidentDto.builder()
-            .addressId(1L)
+            .propertyId(1L)
             .fullName("My Resident")
             .email("resident@email.com")
             .phone("1234567890")
@@ -128,7 +128,7 @@ public class ResidentServiceTest {
         resident.setEmail(residentEmail);
 
         ResidentDto residentDto = ResidentDto.builder()
-            .addressId(1L)
+            .propertyId(1L)
             .fullName("My Resident")
             .email("resident@email.com")
             .phone("1234567890")
