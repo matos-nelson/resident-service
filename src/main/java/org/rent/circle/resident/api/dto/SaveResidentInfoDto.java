@@ -18,7 +18,7 @@ import lombok.Setter;
 public class SaveResidentInfoDto {
 
     @NotNull
-    private Long addressId;
+    private Long propertyId;
 
     private String preferredName;
 

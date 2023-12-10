@@ -33,7 +33,7 @@ public class ResidentResourceTest {
             .licenseNumber("123-ABC")
             .build();
         SaveResidentInfoDto saveResidentInfoDto = SaveResidentInfoDto.builder()
-            .addressId(1L)
+            .propertyId(1L)
             .preferredName("Preferred Name")
             .fullName("Simple Test")
             .email("simpletest@email.com")
@@ -57,7 +57,7 @@ public class ResidentResourceTest {
     public void Post_WhenGivenAnInValidRequestToSave_ShouldReturnBadRequest() {
         // Arrange
         SaveResidentInfoDto saveResidentInfoDto = SaveResidentInfoDto.builder()
-            .addressId(1L)
+            .propertyId(1L)
             .build();
 
         // Act
@@ -96,7 +96,7 @@ public class ResidentResourceTest {
             .then()
             .statusCode(HttpStatus.SC_OK)
             .body("id", is(100),
-                "addressId", is(1),
+                "propertyId", is(1),
                 "fullName", is("First Resident"),
                 "email", is("firstresident@email.com"),
                 "phone", is("1234445555"),
@@ -133,7 +133,7 @@ public class ResidentResourceTest {
             .then()
             .statusCode(HttpStatus.SC_OK)
             .body("id", is(100),
-                "addressId", is(1),
+                "propertyId", is(1),
                 "fullName", is("First Resident"),
                 "email", is("firstresident@email.com"),
                 "phone", is("1234445555"),
@@ -196,7 +196,7 @@ public class ResidentResourceTest {
             .then()
             .statusCode(HttpStatus.SC_OK)
             .body("id", is(300),
-                "addressId", is(1909),
+                "propertyId", is(1909),
                 "fullName", is("Update Resident"),
                 "email", is("updateresidenttest@email.com"),
                 "phone", is(updateResidentDto.getPhone()),

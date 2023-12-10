@@ -15,7 +15,7 @@ import lombok.Setter;
 public class ResidentDto {
 
     private Long id;
-    private Long addressId;
+    private Long propertyId;
     private String preferredName;
     private String fullName;
     private String email;

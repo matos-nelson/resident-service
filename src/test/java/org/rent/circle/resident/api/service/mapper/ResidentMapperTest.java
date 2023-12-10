@@ -38,7 +38,7 @@ public class ResidentMapperTest {
     public void toModel_WhenGivenASaveResidentInfoDto_ShouldMap() {
         // Arrange
         SaveResidentInfoDto saveResidentInfo = SaveResidentInfoDto.builder()
-            .addressId(1L)
+            .propertyId(1L)
             .preferredName("Preferred Name")
             .fullName("Simple Test")
             .email("simpletest@email.com")
@@ -50,7 +50,7 @@ public class ResidentMapperTest {
 
         // Assert
         assertNotNull(result);
-        assertEquals(saveResidentInfo.getAddressId(), result.getAddressId());
+        assertEquals(saveResidentInfo.getPropertyId(), result.getPropertyId());
         assertEquals(saveResidentInfo.getPreferredName(), result.getPreferredName());
         assertEquals(saveResidentInfo.getFullName(), result.getFullName());
         assertEquals(saveResidentInfo.getEmail(), result.getEmail());
@@ -99,7 +99,7 @@ public class ResidentMapperTest {
     public void toDto_WhenGivenAResident_ShouldMap() {
         // Arrange
         Resident resident = new Resident();
-        resident.setAddressId(1L);
+        resident.setPropertyId(1L);
         resident.setPreferredName("Preferred Name");
         resident.setFullName("Simple Test");
         resident.setEmail("simpletest@email.com");
@@ -111,7 +111,7 @@ public class ResidentMapperTest {
         // Assert
         assertNotNull(result);
         assertEquals(resident.getId(), result.getId());
-        assertEquals(resident.getAddressId(), result.getAddressId());
+        assertEquals(resident.getPropertyId(), result.getPropertyId());
         assertEquals(resident.getPreferredName(), result.getPreferredName());
         assertEquals(resident.getFullName(), result.getFullName());
         assertEquals(resident.getEmail(), result.getEmail());
@@ -148,7 +148,7 @@ public class ResidentMapperTest {
     public void update_WhenGivenNullUpdateResidentDto_ShouldReturnNull() {
         // Arrange
         Resident resident = new Resident();
-        resident.setAddressId(1L);
+        resident.setPropertyId(1L);
         resident.setPreferredName("Preferred Name");
         resident.setFullName("Simple Test");
         resident.setEmail("simpletest@email.com");
@@ -165,7 +165,7 @@ public class ResidentMapperTest {
     public void update_WhenGivenAnUpdateResidentDto_ShouldMap() {
         // Arrange
         Resident resident = new Resident();
-        resident.setAddressId(1L);
+        resident.setPropertyId(1L);
         resident.setPreferredName("Preferred Name");
         resident.setFullName("Simple Test");
         resident.setEmail("simpletest@email.com");
