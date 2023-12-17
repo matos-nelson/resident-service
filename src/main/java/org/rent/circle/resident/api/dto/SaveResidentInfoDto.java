@@ -20,6 +20,9 @@ public class SaveResidentInfoDto {
     @NotNull
     private Long propertyId;
 
+    @NotNull
+    private String userId;
+
     private String preferredName;
 
     @NotNull

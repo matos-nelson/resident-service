@@ -43,9 +43,10 @@ public class ResidentService {
     }
 
     @Transactional
-    public void updateResidentInfo(long residentId, UpdateResidentDto updateResidentInfo) {
-        Resident resident = residentRepository.findById(residentId);
+    public void updateResidentInfo(String userId, UpdateResidentDto updateResidentInfo) {
+        Resident resident = residentRepository.findByUserId(userId);
         if (resident == null) {
+            log.info("Could Not Find Resident For Update");
             return;
         }
 

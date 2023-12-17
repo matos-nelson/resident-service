@@ -41,4 +41,28 @@ public class ResidentRepositoryTest {
         // Assert
         assertNotNull(result);
     }
+
+    @Test
+    @TestTransaction
+    public void findResidentByUserId_WhenResidentDoesNotExist_ShouldReturnNull() {
+        // Arrange
+
+        // Act
+        Resident result = residentRepository.findByUserId("invalid_user");
+
+        // Assert
+        assertNull(result);
+    }
+
+    @Test
+    @TestTransaction
+    public void findResidentByUserId_WhenResidentDoesExist_ShouldReturnResident() {
+        // Arrange
+
+        // Act
+        Resident result = residentRepository.findByUserId("auth_user");
+
+        // Assert
+        assertNotNull(result);
+    }
 }

@@ -28,6 +28,9 @@ public class Resident extends BaseModel {
     @Column(name = "property_id")
     private Long propertyId;
 
+    @Column(name = "user_id")
+    private String userId;
+
     @Column(name = "preferred_name")
     private String preferredName;
 
