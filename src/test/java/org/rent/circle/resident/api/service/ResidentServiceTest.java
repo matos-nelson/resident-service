@@ -46,6 +46,7 @@ public class ResidentServiceTest {
             .build();
         SaveResidentInfoDto saveResidentInfo = SaveResidentInfoDto.builder()
             .propertyId(1L)
+            .userId("123")
             .preferredName("Preferred Name")
             .fullName("Simple Test")
             .email("simpletest@email.com")
@@ -147,12 +148,12 @@ public class ResidentServiceTest {
     @Test
     public void updateResident_WhenResidentIsNotFound_ShouldReturnNotUpdate() {
         // Arrange
-        long residentId = 1L;
+        String userId = "123";
         UpdateResidentDto updateResidentDto = UpdateResidentDto.builder().build();
-        when(residentRepository.findById(residentId)).thenReturn(null);
+        when(residentRepository.findByUserId(userId)).thenReturn(null);
 
         // Act
-        residentService.updateResidentInfo(residentId, updateResidentDto);
+        residentService.updateResidentInfo(userId, updateResidentDto);
 
         // Assert
         verify(residentMapper, never()).update(updateResidentDto, null);
@@ -162,19 +163,20 @@ public class ResidentServiceTest {
     @Test
     public void updateResidentInfo_WhenCalled_ShouldUpdate() {
         // Arrange
-        Long residentId = 1L;
+        String userId = "123";
 
         Resident resident = new Resident();
-        resident.setId(residentId);
+        resident.setId(1L);
+        resident.setUserId(userId);
 
         UpdateResidentDto updateResidentInfo = UpdateResidentDto.builder()
             .preferredName("Updated Name")
             .phone("9876543210")
             .build();
-        when(residentRepository.findById(residentId)).thenReturn(resident);
+        when(residentRepository.findByUserId(userId)).thenReturn(resident);
 
         // Act
-        residentService.updateResidentInfo(residentId, updateResidentInfo);
+        residentService.updateResidentInfo(userId, updateResidentInfo);
 
         // Assert
         verify(residentMapper, times(1)).update(updateResidentInfo, resident);

@@ -39,6 +39,7 @@ public class ResidentMapperTest {
         // Arrange
         SaveResidentInfoDto saveResidentInfo = SaveResidentInfoDto.builder()
             .propertyId(1L)
+            .userId("123")
             .preferredName("Preferred Name")
             .fullName("Simple Test")
             .email("simpletest@email.com")
@@ -51,6 +52,7 @@ public class ResidentMapperTest {
         // Assert
         assertNotNull(result);
         assertEquals(saveResidentInfo.getPropertyId(), result.getPropertyId());
+        assertEquals(saveResidentInfo.getUserId(), result.getUserId());
         assertEquals(saveResidentInfo.getPreferredName(), result.getPreferredName());
         assertEquals(saveResidentInfo.getFullName(), result.getFullName());
         assertEquals(saveResidentInfo.getEmail(), result.getEmail());

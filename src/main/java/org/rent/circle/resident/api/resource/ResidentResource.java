@@ -15,6 +15,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.eclipse.microprofile.jwt.JsonWebToken;
 import org.rent.circle.resident.api.dto.ResidentDto;
 import org.rent.circle.resident.api.dto.SaveResidentInfoDto;
 import org.rent.circle.resident.api.dto.UpdateResidentDto;
@@ -29,9 +30,10 @@ import org.rent.circle.resident.api.service.ResidentService;
 public class ResidentResource {
 
     private final ResidentService residentService;
+    private final JsonWebToken jwt;
 
     @POST
-    public Long saveResident(@NotNull @Valid SaveResidentInfoDto saveResidentInfo) {
+    public Long saveResident(@Valid SaveResidentInfoDto saveResidentInfo) {
         return residentService.saveResidentInfo(saveResidentInfo);
     }
 
@@ -48,9 +50,7 @@ public class ResidentResource {
     }
 
     @PATCH
-    @Path("/{id}")
-    public void updateResident(@NotNull @PathParam("id") long residentId,
-        @NotNull @Valid UpdateResidentDto updateResidentInfo) {
-        residentService.updateResidentInfo(residentId, updateResidentInfo);
+    public void updateResident(@Valid UpdateResidentDto updateResidentInfo) {
+        residentService.updateResidentInfo(jwt.getName(), updateResidentInfo);
     }
 }

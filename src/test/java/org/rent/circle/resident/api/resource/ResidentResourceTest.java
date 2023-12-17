@@ -7,6 +7,13 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.h2.H2DatabaseTestResource;
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.security.TestSecurity;
+import io.quarkus.test.security.jwt.Claim;
+import io.quarkus.test.security.jwt.JwtSecurity;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 import java.util.Collections;
 import org.apache.http.HttpStatus;
 import org.hamcrest.Matchers;
@@ -22,6 +29,17 @@ import org.rent.circle.resident.api.dto.VehicleDto;
 @AuthUser
 public class ResidentResourceTest {
 
+
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target({ElementType.METHOD})
+    @TestSecurity(user = "update_user")
+    @JwtSecurity(claims = {
+        @Claim(key = "user_id", value = "123456")
+    })
+    public @interface UpdateResidentUser {
+
+    }
+
     @Test
     public void Post_WhenGivenAValidRequestToSave_ShouldReturnSavedResidentId() {
         // Arrange
@@ -34,6 +52,7 @@ public class ResidentResourceTest {
             .build();
         SaveResidentInfoDto saveResidentInfoDto = SaveResidentInfoDto.builder()
             .propertyId(1L)
+            .userId("123")
             .preferredName("Preferred Name")
             .fullName("Simple Test")
             .email("simpletest@email.com")
@@ -146,9 +165,9 @@ public class ResidentResourceTest {
     }
 
     @Test
+    @UpdateResidentUser
     public void PATCH_WhenGivenRequestToUpdateResidentFailsValidation_ShouldReturnBadRequest() {
         // Arrange
-        long residentId = 300L;
         UpdateResidentDto updateResidentDto = UpdateResidentDto.builder()
             .build();
 
@@ -158,12 +177,13 @@ public class ResidentResourceTest {
             .contentType("application/json")
             .body(updateResidentDto)
             .when()
-            .patch("/" + residentId)
+            .patch()
             .then()
             .statusCode(HttpStatus.SC_BAD_REQUEST);
     }
 
     @Test
+    @UpdateResidentUser
     public void PATCH_WhenGivenAValidRequestToUpdateResident_ShouldReturnNoContent() {
         // Arrange
         long residentId = 300L;
@@ -186,7 +206,7 @@ public class ResidentResourceTest {
             .contentType("application/json")
             .body(updateResidentDto)
             .when()
-            .patch("/" + residentId)
+            .patch()
             .then()
             .statusCode(HttpStatus.SC_NO_CONTENT);
 

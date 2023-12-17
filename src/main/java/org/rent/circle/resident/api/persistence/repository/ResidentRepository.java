@@ -14,4 +14,8 @@ public class ResidentRepository implements PanacheRepository<Resident> {
             .singleResultOptional()
             .orElse(null);
     }
+
+    public Resident findByUserId(String userId) {
+        return find("userId", userId).firstResult();
+    }
 }
