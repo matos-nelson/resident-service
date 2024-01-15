@@ -34,7 +34,7 @@ public class ResidentResource {
 
     @POST
     public Long saveResident(@Valid SaveResidentInfoDto saveResidentInfo) {
-        return residentService.saveResidentInfo(saveResidentInfo);
+        return residentService.saveResidentInfo(saveResidentInfo, jwt.getName());
     }
 
     @GET

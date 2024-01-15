@@ -37,6 +37,7 @@ public class ResidentServiceTest {
     @Test
     public void saveResidentInfo_WhenCalled_ShouldReturnSavedResidentId() {
         // Arrange
+        String managerId = "abc123";
         VehicleDto vehicle = VehicleDto.builder()
             .make("Make")
             .model("Model")
@@ -59,7 +60,7 @@ public class ResidentServiceTest {
         when(residentMapper.toModel(saveResidentInfo)).thenReturn(resident);
 
         // Act
-        Long result = residentService.saveResidentInfo(saveResidentInfo);
+        Long result = residentService.saveResidentInfo(saveResidentInfo, managerId);
 
         // Assert
         assertNotNull(result);
