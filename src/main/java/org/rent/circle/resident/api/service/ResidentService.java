@@ -33,8 +33,8 @@ public class ResidentService {
         return resident.getId();
     }
 
-    public ResidentDto getResidentById(long id) {
-        Resident resident = residentRepository.findById(id);
+    public ResidentDto getResident(long id, String managerId) {
+        Resident resident = residentRepository.findByIdAndManagerId(id, managerId);
         return residentMapper.toDto(resident);
     }
 

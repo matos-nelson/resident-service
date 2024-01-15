@@ -40,7 +40,7 @@ public class ResidentResource {
     @GET
     @Path("/{id}")
     public ResidentDto getResident(@NotNull @PathParam("id") long residentId) {
-        return residentService.getResidentById(residentId);
+        return residentService.getResident(residentId, jwt.getName());
     }
 
     @GET
