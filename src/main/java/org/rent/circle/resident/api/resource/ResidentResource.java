@@ -34,13 +34,13 @@ public class ResidentResource {
 
     @POST
     public Long saveResident(@Valid SaveResidentInfoDto saveResidentInfo) {
-        return residentService.saveResidentInfo(saveResidentInfo);
+        return residentService.saveResidentInfo(saveResidentInfo, jwt.getName());
     }
 
     @GET
     @Path("/{id}")
     public ResidentDto getResident(@NotNull @PathParam("id") long residentId) {
-        return residentService.getResidentById(residentId);
+        return residentService.getResident(residentId, jwt.getName());
     }
 
     @GET

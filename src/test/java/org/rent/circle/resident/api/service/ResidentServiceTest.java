@@ -37,6 +37,7 @@ public class ResidentServiceTest {
     @Test
     public void saveResidentInfo_WhenCalled_ShouldReturnSavedResidentId() {
         // Arrange
+        String managerId = "abc123";
         VehicleDto vehicle = VehicleDto.builder()
             .make("Make")
             .model("Model")
@@ -59,7 +60,7 @@ public class ResidentServiceTest {
         when(residentMapper.toModel(saveResidentInfo)).thenReturn(resident);
 
         // Act
-        Long result = residentService.saveResidentInfo(saveResidentInfo);
+        Long result = residentService.saveResidentInfo(saveResidentInfo, managerId);
 
         // Assert
         assertNotNull(result);
@@ -67,22 +68,24 @@ public class ResidentServiceTest {
     }
 
     @Test
-    public void getResidentById_WhenResidentWithGivenIdCantBeFound_ShouldReturnNull() {
+    public void getResident_WhenResidentWithGivenIdCantBeFound_ShouldReturnNull() {
         // Arrange
+        String managerId = "abc123";
         long residentId = 1;
-        when(residentRepository.findById(residentId)).thenReturn(null);
+        when(residentRepository.findByIdAndManagerId(residentId, managerId)).thenReturn(null);
         when(residentMapper.toDto(null)).thenReturn(null);
 
         // Act
-        ResidentDto result = residentService.getResidentById(residentId);
+        ResidentDto result = residentService.getResident(residentId, managerId);
 
         // Assert
         assertNull(result);
     }
 
     @Test
-    public void getResidentById_WhenCalled_ShouldReturnResident() {
+    public void getResident_WhenCalled_ShouldReturnResident() {
         // Arrange
+        String managerId = "abc123";
         long residentId = 100;
 
         Resident resident = new Resident();
@@ -95,11 +98,11 @@ public class ResidentServiceTest {
             .phone("1234567890")
             .build();
 
-        when(residentRepository.findById(residentId)).thenReturn(resident);
+        when(residentRepository.findByIdAndManagerId(residentId, managerId)).thenReturn(resident);
         when(residentMapper.toDto(resident)).thenReturn(residentDto);
 
         // Act
-        ResidentDto result = residentService.getResidentById(residentId);
+        ResidentDto result = residentService.getResident(residentId, managerId);
 
         // Assert
         assertEquals(residentDto, result);

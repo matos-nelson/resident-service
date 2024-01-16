@@ -1,5 +1,6 @@
 CREATE TABLE IF NOT EXISTS resident (
   id bigint PRIMARY KEY AUTO_INCREMENT,
+  manager_id varchar(255) NOT NULL,
   property_id bigint NOT NULL,
   user_id varchar(255) NOT NULL,
   preferred_name varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,

@@ -25,6 +25,9 @@ public class Resident extends BaseModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "manager_id")
+    private String managerId;
+
     @Column(name = "property_id")
     private Long propertyId;
 

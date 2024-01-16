@@ -184,7 +184,7 @@ public class ResidentResourceTest {
 
     @Test
     @UpdateResidentUser
-    public void PATCH_WhenGivenAValidRequestToUpdateResident_ShouldReturnNoContent() {
+    public void PATCH_WhenGivenAValidRequestToUpdateResident_ShouldReturnOk() {
         // Arrange
         long residentId = 300L;
         VehicleDto vehicle = VehicleDto.builder()

@@ -24,16 +24,17 @@ public class ResidentService {
     ResidentMapper residentMapper;
 
     @Transactional
-    public Long saveResidentInfo(SaveResidentInfoDto saveResidentInfo) {
+    public Long saveResidentInfo(SaveResidentInfoDto saveResidentInfo, String managerId) {
 
         Resident resident = residentMapper.toModel(saveResidentInfo);
+        resident.setManagerId(managerId);
 
         residentRepository.persist(resident);
         return resident.getId();
     }
 
-    public ResidentDto getResidentById(long id) {
-        Resident resident = residentRepository.findById(id);
+    public ResidentDto getResident(long id, String managerId) {
+        Resident resident = residentRepository.findByIdAndManagerId(id, managerId);
         return residentMapper.toDto(resident);
     }
 
