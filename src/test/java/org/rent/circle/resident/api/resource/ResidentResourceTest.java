@@ -19,6 +19,7 @@ import org.apache.http.HttpStatus;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.rent.circle.resident.api.annotation.AuthUser;
+import org.rent.circle.resident.api.dto.SaveCoResidentInfoDto;
 import org.rent.circle.resident.api.dto.SaveResidentInfoDto;
 import org.rent.circle.resident.api.dto.UpdateResidentDto;
 import org.rent.circle.resident.api.dto.VehicleDto;
@@ -50,6 +51,12 @@ public class ResidentResourceTest {
             .color("Color")
             .licenseNumber("123-ABC")
             .build();
+        SaveCoResidentInfoDto saveCoResidentInfoDto = SaveCoResidentInfoDto.builder()
+            .preferredName("Co Resident")
+            .fullName("My Coresident")
+            .email("coresident@email.com")
+            .phone("1231231234")
+            .build();
         SaveResidentInfoDto saveResidentInfoDto = SaveResidentInfoDto.builder()
             .propertyId(1L)
             .userId("123")
@@ -57,6 +64,7 @@ public class ResidentResourceTest {
             .fullName("Simple Test")
             .email("simpletest@email.com")
             .phone("1234567890")
+            .coResidents(Collections.singletonList(saveCoResidentInfoDto))
             .vehicles(Collections.singletonList(vehicle))
             .build();
 
@@ -77,6 +85,31 @@ public class ResidentResourceTest {
         // Arrange
         SaveResidentInfoDto saveResidentInfoDto = SaveResidentInfoDto.builder()
             .propertyId(1L)
+            .build();
+
+        // Act
+        // Assert
+        given()
+            .contentType("application/json")
+            .body(saveResidentInfoDto)
+            .when()
+            .post()
+            .then()
+            .statusCode(HttpStatus.SC_BAD_REQUEST);
+    }
+
+    @Test
+    public void Post_WhenGivenARequestWithInvalidCoResidentToSave_ShouldReturnBadRequest() {
+        // Arrange
+
+        SaveResidentInfoDto saveResidentInfoDto = SaveResidentInfoDto.builder()
+            .propertyId(1L)
+            .userId("123")
+            .preferredName("Preferred Name")
+            .fullName("Simple Test")
+            .email("simpletest@email.com")
+            .phone("1234567890")
+            .coResidents(Collections.singletonList(SaveCoResidentInfoDto.builder().build()))
             .build();
 
         // Act
