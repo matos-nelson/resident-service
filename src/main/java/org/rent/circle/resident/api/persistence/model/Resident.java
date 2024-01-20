@@ -48,5 +48,9 @@ public class Resident extends BaseModel {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "resident_id", referencedColumnName = "id", nullable = false)
+    private List<CoResident> coResidents;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "resident_id", referencedColumnName = "id", nullable = false)
     private List<Vehicle> vehicles;
 }

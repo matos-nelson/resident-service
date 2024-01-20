@@ -8,34 +8,29 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import org.rent.circle.resident.api.persistence.BaseModel;
 
 @Entity
-@Table(name = "resident_vehicle")
+@Table(name = "co_resident")
 @Setter
 @Getter
-@ToString
-public class Vehicle extends BaseModel {
+public class CoResident extends BaseModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "make")
-    private String make;
+    @Column(name = "preferred_name")
+    private String preferredName;
 
-    @Column(name = "model")
-    private String model;
+    @Column(name = "full_name")
+    private String fullName;
 
-    @Column(name = "year_made")
-    private Integer year;
+    @Column(name = "email")
+    private String email;
 
-    @Column(name = "color")
-    private String color;
-
-    @Column(name = "license_num")
-    private String licenseNumber;
+    @Column(name = "phone")
+    private String phone;
 
     @Column(name = "resident_id", insertable = false, updatable = false, nullable = false)
     private Long residentId;
