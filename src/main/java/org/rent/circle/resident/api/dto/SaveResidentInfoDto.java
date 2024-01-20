@@ -1,5 +1,6 @@
 package org.rent.circle.resident.api.dto;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -35,6 +36,9 @@ public class SaveResidentInfoDto {
 
     @NotNull
     private String phone;
+
+    @Valid
+    private List<SaveCoResidentInfoDto> coResidents;
 
     private List<VehicleDto> vehicles;
 }

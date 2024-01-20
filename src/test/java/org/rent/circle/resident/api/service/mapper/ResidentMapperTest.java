@@ -11,9 +11,11 @@ import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.rent.circle.resident.api.dto.ResidentDto;
+import org.rent.circle.resident.api.dto.SaveCoResidentInfoDto;
 import org.rent.circle.resident.api.dto.SaveResidentInfoDto;
 import org.rent.circle.resident.api.dto.UpdateResidentDto;
 import org.rent.circle.resident.api.dto.VehicleDto;
+import org.rent.circle.resident.api.persistence.model.CoResident;
 import org.rent.circle.resident.api.persistence.model.Resident;
 import org.rent.circle.resident.api.persistence.model.Vehicle;
 
@@ -84,6 +86,31 @@ public class ResidentMapperTest {
         assertEquals(vehicle.getYear(), result.getVehicles().get(0).getYear());
         assertEquals(vehicle.getColor(), result.getVehicles().get(0).getColor());
         assertEquals(vehicle.getLicenseNumber(), result.getVehicles().get(0).getLicenseNumber());
+    }
+
+    @Test
+    public void toModel_WhenGivenASaveResidentInfoDtoWithCoResidents_ShouldMap() {
+        // Arrange
+        SaveCoResidentInfoDto saveCoResidentInfoDto = SaveCoResidentInfoDto.builder()
+            .preferredName("SaveCo")
+            .fullName("Co Resident")
+            .email("coresident@email.com")
+            .phone("1238909900")
+            .build();
+        SaveResidentInfoDto saveResidentInfo = SaveResidentInfoDto.builder()
+            .coResidents(Collections.singletonList(saveCoResidentInfoDto))
+            .build();
+
+        // Act
+        Resident result = residentMapper.toModel(saveResidentInfo);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(1, result.getCoResidents().size());
+        assertEquals(saveCoResidentInfoDto.getPreferredName(), result.getCoResidents().get(0).getPreferredName());
+        assertEquals(saveCoResidentInfoDto.getFullName(), result.getCoResidents().get(0).getFullName());
+        assertEquals(saveCoResidentInfoDto.getEmail(), result.getCoResidents().get(0).getEmail());
+        assertEquals(saveCoResidentInfoDto.getPhone(), result.getCoResidents().get(0).getPhone());
     }
 
     @Test
@@ -220,7 +247,7 @@ public class ResidentMapperTest {
     }
 
     @Test
-    public void update_WhenAResidentHasVehicleAndGivenUpdateResidentDtoHasNoVehicles_ShouldMap() {
+    public void update_WhenAResidentHasAVehicleAndGivenUpdateResidentDtoHasNoVehicles_ShouldMap() {
         // Arrange
         Vehicle vehicle = new Vehicle();
         vehicle.setMake("Make");
@@ -243,7 +270,7 @@ public class ResidentMapperTest {
     }
 
     @Test
-    public void update_WhenAResidentHasMoreVehicleThanGivenUpdateResidentDtoVehicles_ShouldMap() {
+    public void update_WhenAResidentHasMoreVehiclesThanGivenUpdateResidentDtoVehicles_ShouldMap() {
         // Arrange
         Vehicle vehicle1 = new Vehicle();
         vehicle1.setMake("Make");
@@ -289,5 +316,37 @@ public class ResidentMapperTest {
         assertEquals(vehicleDto.getYear(), resident.getVehicles().get(0).getYear());
         assertEquals(vehicleDto.getColor(), resident.getVehicles().get(0).getColor());
         assertEquals(vehicleDto.getLicenseNumber(), resident.getVehicles().get(0).getLicenseNumber());
+    }
+
+    @Test
+    public void toCoResidentModel_WhenGivenNull_ShouldReturnNull() {
+        // Arrange
+
+        // Act
+        CoResident result = residentMapper.toCoResidentModel(null);
+
+        // Assert
+        assertNull(result);
+    }
+
+    @Test
+    public void toCoResidentModel_WhenGivenASaveCoResidentInfoDto_ShouldMap() {
+        // Arrange
+        SaveCoResidentInfoDto saveCoResidentInfo = SaveCoResidentInfoDto.builder()
+            .preferredName("Preferred Name")
+            .fullName("Simple Test")
+            .email("simpletest@email.com")
+            .phone("1234567890")
+            .build();
+
+        // Act
+        CoResident result = residentMapper.toCoResidentModel(saveCoResidentInfo);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(saveCoResidentInfo.getPreferredName(), result.getPreferredName());
+        assertEquals(saveCoResidentInfo.getFullName(), result.getFullName());
+        assertEquals(saveCoResidentInfo.getEmail(), result.getEmail());
+        assertEquals(saveCoResidentInfo.getPhone(), result.getPhone());
     }
 }
