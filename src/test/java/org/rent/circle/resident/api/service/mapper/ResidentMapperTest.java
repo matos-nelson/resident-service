@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.Test;
+import org.rent.circle.resident.api.dto.CoResidentDto;
 import org.rent.circle.resident.api.dto.ResidentDto;
 import org.rent.circle.resident.api.dto.SaveCoResidentInfoDto;
 import org.rent.circle.resident.api.dto.SaveResidentInfoDto;
@@ -171,6 +172,70 @@ public class ResidentMapperTest {
         assertEquals(vehicle.getYear(), result.getVehicles().get(0).getYear());
         assertEquals(vehicle.getColor(), result.getVehicles().get(0).getColor());
         assertEquals(vehicle.getLicenseNumber(), result.getVehicles().get(0).getLicenseNumber());
+    }
+
+    @Test
+    public void toDto_WhenGivenAResidentWithCoResidents_ShouldMap() {
+        // Arrange
+        CoResident coResident = new CoResident();
+        coResident.setEmail("coresident@email.com");
+        coResident.setFullName("My resident");
+        coResident.setPreferredName("Co Resident");
+        coResident.setPhone("1231231234");
+
+        Resident resident = new Resident();
+        resident.setCoResidents(Collections.singletonList(coResident));
+
+        // Act
+        ResidentDto result = residentMapper.toDto(resident);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(1, result.getCoResidents().size());
+        assertEquals(coResident.getEmail(), result.getCoResidents().get(0).getEmail());
+        assertEquals(coResident.getFullName(), result.getCoResidents().get(0).getFullName());
+        assertEquals(coResident.getPreferredName(), result.getCoResidents().get(0).getPreferredName());
+        assertEquals(coResident.getPhone(), result.getCoResidents().get(0).getPhone());
+    }
+
+    @Test
+    public void toCoResidentDto_WhenGivenNull_ShouldReturnNull() {
+        // Arrange
+        CoResident coResident = new CoResident();
+        coResident.setEmail("coresident@email.com");
+        coResident.setFullName("My resident");
+        coResident.setPreferredName("Co Resident");
+        coResident.setPhone("1231231234");
+
+        // Act
+        CoResidentDto result = residentMapper.toCoResidentDto(coResident);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(coResident.getEmail(), result.getEmail());
+        assertEquals(coResident.getFullName(), result.getFullName());
+        assertEquals(coResident.getPreferredName(), result.getPreferredName());
+        assertEquals(coResident.getPhone(), result.getPhone());
+    }
+
+    @Test
+    public void toCoResidentDto_WhenGivenAValidCoResident_ShouldMap() {
+        // Arrange
+        CoResident coResident = new CoResident();
+        coResident.setEmail("coresident@email.com");
+        coResident.setFullName("My resident");
+        coResident.setPreferredName("Co Resident");
+        coResident.setPhone("1231231234");
+
+        // Act
+        CoResidentDto result = residentMapper.toCoResidentDto(coResident);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(coResident.getEmail(), result.getEmail());
+        assertEquals(coResident.getFullName(), result.getFullName());
+        assertEquals(coResident.getPreferredName(), result.getPreferredName());
+        assertEquals(coResident.getPhone(), result.getPhone());
     }
 
     @Test

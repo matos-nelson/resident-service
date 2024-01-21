@@ -3,6 +3,7 @@ package org.rent.circle.resident.api.service.mapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.ReportingPolicy;
+import org.rent.circle.resident.api.dto.CoResidentDto;
 import org.rent.circle.resident.api.dto.ResidentDto;
 import org.rent.circle.resident.api.dto.SaveCoResidentInfoDto;
 import org.rent.circle.resident.api.dto.SaveResidentInfoDto;
@@ -20,4 +21,6 @@ public interface ResidentMapper {
     void update(UpdateResidentDto updateResidentInfo, @MappingTarget Resident resident);
 
     ResidentDto toDto(Resident resident);
+
+    CoResidentDto toCoResidentDto(CoResident coResident);
 }
