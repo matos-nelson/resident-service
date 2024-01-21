@@ -157,7 +157,12 @@ public class ResidentResourceTest {
                 "vehicles[0].model", is("Rogue"),
                 "vehicles[0].year", is(2000),
                 "vehicles[0].color", is("Blue"),
-                "vehicles[0].licenseNumber", is("AAA-123"));
+                "vehicles[0].licenseNumber", is("AAA-123"),
+                "coResidents", is(Matchers.hasSize(1)),
+                "coResidents[0].preferredName", is("Preferred Name"),
+                "coResidents[0].fullName", is("Co Resident"),
+                "coResidents[0].email", is("coresident@email.com"),
+                "coResidents[0].phone", is("9891231234"));
     }
 
     @Test
