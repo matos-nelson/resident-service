@@ -17,6 +17,7 @@ import org.rent.circle.resident.api.dto.SaveResidentInfoDto;
 import org.rent.circle.resident.api.dto.UpdateResidentDto;
 import org.rent.circle.resident.api.dto.VehicleDto;
 import org.rent.circle.resident.api.persistence.model.CoResident;
+import org.rent.circle.resident.api.persistence.model.PrimaryResident;
 import org.rent.circle.resident.api.persistence.model.Resident;
 import org.rent.circle.resident.api.persistence.model.Vehicle;
 
@@ -31,7 +32,7 @@ public class ResidentMapperTest {
         // Arrange
 
         // Act
-        Resident result = residentMapper.toModel(null);
+        PrimaryResident result = residentMapper.toModel(null);
 
         // Assert
         assertNull(result);
@@ -50,7 +51,7 @@ public class ResidentMapperTest {
             .build();
 
         // Act
-        Resident result = residentMapper.toModel(saveResidentInfo);
+        PrimaryResident result = residentMapper.toModel(saveResidentInfo);
 
         // Assert
         assertNotNull(result);
@@ -77,7 +78,7 @@ public class ResidentMapperTest {
             .build();
 
         // Act
-        Resident result = residentMapper.toModel(saveResidentInfo);
+        PrimaryResident result = residentMapper.toModel(saveResidentInfo);
 
         // Assert
         assertNotNull(result);
@@ -103,7 +104,7 @@ public class ResidentMapperTest {
             .build();
 
         // Act
-        Resident result = residentMapper.toModel(saveResidentInfo);
+        PrimaryResident result = residentMapper.toModel(saveResidentInfo);
 
         // Assert
         assertNotNull(result);
@@ -128,7 +129,7 @@ public class ResidentMapperTest {
     @Test
     public void toDto_WhenGivenAResident_ShouldMap() {
         // Arrange
-        Resident resident = new Resident();
+        PrimaryResident resident = new PrimaryResident();
         resident.setPropertyId(1L);
         resident.setPreferredName("Preferred Name");
         resident.setFullName("Simple Test");
@@ -158,11 +159,11 @@ public class ResidentMapperTest {
         vehicle.setColor("Color");
         vehicle.setLicenseNumber("123-ABC");
 
-        Resident resident = new Resident();
-        resident.setVehicles(Collections.singletonList(vehicle));
+        PrimaryResident primaryResident = new PrimaryResident();
+        primaryResident.setVehicles(Collections.singletonList(vehicle));
 
         // Act
-        ResidentDto result = residentMapper.toDto(resident);
+        ResidentDto result = residentMapper.toDto(primaryResident);
 
         // Assert
         assertNotNull(result);
@@ -183,11 +184,11 @@ public class ResidentMapperTest {
         coResident.setPreferredName("Co Resident");
         coResident.setPhone("1231231234");
 
-        Resident resident = new Resident();
-        resident.setCoResidents(Collections.singletonList(coResident));
+        PrimaryResident primaryResident = new PrimaryResident();
+        primaryResident.setCoResidents(Collections.singletonList(coResident));
 
         // Act
-        ResidentDto result = residentMapper.toDto(resident);
+        ResidentDto result = residentMapper.toDto(primaryResident);
 
         // Assert
         assertNotNull(result);
@@ -241,29 +242,29 @@ public class ResidentMapperTest {
     @Test
     public void update_WhenGivenNullUpdateResidentDto_ShouldReturnNull() {
         // Arrange
-        Resident resident = new Resident();
-        resident.setPropertyId(1L);
-        resident.setPreferredName("Preferred Name");
-        resident.setFullName("Simple Test");
-        resident.setEmail("simpletest@email.com");
-        resident.setPhone("1234567890");
+        PrimaryResident primaryResident = new PrimaryResident();
+        primaryResident.setPropertyId(1L);
+        primaryResident.setPreferredName("Preferred Name");
+        primaryResident.setFullName("Simple Test");
+        primaryResident.setEmail("simpletest@email.com");
+        primaryResident.setPhone("1234567890");
 
         // Act
-        residentMapper.update(null, resident);
+        residentMapper.update(null, primaryResident);
 
         // Assert
-        assertNotNull(resident);
+        assertNotNull(primaryResident);
     }
 
     @Test
     public void update_WhenGivenAnUpdateResidentDto_ShouldMap() {
         // Arrange
-        Resident resident = new Resident();
-        resident.setPropertyId(1L);
-        resident.setPreferredName("Preferred Name");
-        resident.setFullName("Simple Test");
-        resident.setEmail("simpletest@email.com");
-        resident.setPhone("1234567890");
+        PrimaryResident primaryResident = new PrimaryResident();
+        primaryResident.setPropertyId(1L);
+        primaryResident.setPreferredName("Preferred Name");
+        primaryResident.setFullName("Simple Test");
+        primaryResident.setEmail("simpletest@email.com");
+        primaryResident.setPhone("1234567890");
 
         UpdateResidentDto updateResident = UpdateResidentDto.builder()
             .preferredName("Updated Name")
@@ -271,14 +272,14 @@ public class ResidentMapperTest {
             .build();
 
         // Act
-        residentMapper.update(updateResident, resident);
+        residentMapper.update(updateResident, primaryResident);
 
         // Assert
-        assertNotNull(resident);
-        assertEquals(updateResident.getPreferredName(), resident.getPreferredName());
-        assertEquals("Simple Test", resident.getFullName());
-        assertEquals("simpletest@email.com", resident.getEmail());
-        assertEquals(updateResident.getPhone(), resident.getPhone());
+        assertNotNull(primaryResident);
+        assertEquals(updateResident.getPreferredName(), primaryResident.getPreferredName());
+        assertEquals("Simple Test", primaryResident.getFullName());
+        assertEquals("simpletest@email.com", primaryResident.getEmail());
+        assertEquals(updateResident.getPhone(), primaryResident.getPhone());
     }
 
     @Test
