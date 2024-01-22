@@ -18,7 +18,7 @@ import org.rent.circle.resident.api.dto.ResidentDto;
 import org.rent.circle.resident.api.dto.SaveResidentInfoDto;
 import org.rent.circle.resident.api.dto.UpdateResidentDto;
 import org.rent.circle.resident.api.dto.VehicleDto;
-import org.rent.circle.resident.api.persistence.model.Resident;
+import org.rent.circle.resident.api.persistence.model.PrimaryResident;
 import org.rent.circle.resident.api.persistence.repository.ResidentRepository;
 import org.rent.circle.resident.api.service.mapper.ResidentMapper;
 
@@ -55,16 +55,16 @@ public class ResidentServiceTest {
             .vehicles(Collections.singletonList(vehicle))
             .build();
 
-        Resident resident = new Resident();
-        resident.setId(100L);
-        when(residentMapper.toModel(saveResidentInfo)).thenReturn(resident);
+        PrimaryResident primaryResident = new PrimaryResident();
+        primaryResident.setId(100L);
+        when(residentMapper.toModel(saveResidentInfo)).thenReturn(primaryResident);
 
         // Act
         Long result = residentService.saveResidentInfo(saveResidentInfo, managerId);
 
         // Assert
         assertNotNull(result);
-        assertEquals(resident.getId(), result);
+        assertEquals(primaryResident.getId(), result);
     }
 
     @Test
@@ -88,8 +88,8 @@ public class ResidentServiceTest {
         String managerId = "abc123";
         long residentId = 100;
 
-        Resident resident = new Resident();
-        resident.setId(residentId);
+        PrimaryResident primaryResident = new PrimaryResident();
+        primaryResident.setId(residentId);
 
         ResidentDto residentDto = ResidentDto.builder()
             .propertyId(1L)
@@ -98,8 +98,8 @@ public class ResidentServiceTest {
             .phone("1234567890")
             .build();
 
-        when(residentRepository.findByIdAndManagerId(residentId, managerId)).thenReturn(resident);
-        when(residentMapper.toDto(resident)).thenReturn(residentDto);
+        when(residentRepository.findByIdAndManagerId(residentId, managerId)).thenReturn(primaryResident);
+        when(residentMapper.toDto(primaryResident)).thenReturn(residentDto);
 
         // Act
         ResidentDto result = residentService.getResident(residentId, managerId);
@@ -127,9 +127,9 @@ public class ResidentServiceTest {
         // Arrange
         String residentEmail = "resident@email.com";
 
-        Resident resident = new Resident();
-        resident.setId(100L);
-        resident.setEmail(residentEmail);
+        PrimaryResident primaryResident = new PrimaryResident();
+        primaryResident.setId(100L);
+        primaryResident.setEmail(residentEmail);
 
         ResidentDto residentDto = ResidentDto.builder()
             .propertyId(1L)
@@ -138,8 +138,8 @@ public class ResidentServiceTest {
             .phone("1234567890")
             .build();
 
-        when(residentRepository.findByEmail(residentEmail)).thenReturn(resident);
-        when(residentMapper.toDto(resident)).thenReturn(residentDto);
+        when(residentRepository.findByEmail(residentEmail)).thenReturn(primaryResident);
+        when(residentMapper.toDto(primaryResident)).thenReturn(residentDto);
 
         // Act
         ResidentDto result = residentService.getResidentByEmail(residentEmail);
@@ -160,7 +160,7 @@ public class ResidentServiceTest {
 
         // Assert
         verify(residentMapper, never()).update(updateResidentDto, null);
-        verify(residentRepository, never()).persist(Mockito.any(Resident.class));
+        verify(residentRepository, never()).persist(Mockito.any(PrimaryResident.class));
     }
 
     @Test
@@ -168,21 +168,21 @@ public class ResidentServiceTest {
         // Arrange
         String userId = "123";
 
-        Resident resident = new Resident();
-        resident.setId(1L);
-        resident.setUserId(userId);
+        PrimaryResident primaryResident = new PrimaryResident();
+        primaryResident.setId(1L);
+        primaryResident.setUserId(userId);
 
         UpdateResidentDto updateResidentInfo = UpdateResidentDto.builder()
             .preferredName("Updated Name")
             .phone("9876543210")
             .build();
-        when(residentRepository.findByUserId(userId)).thenReturn(resident);
+        when(residentRepository.findByUserId(userId)).thenReturn(primaryResident);
 
         // Act
         residentService.updateResidentInfo(userId, updateResidentInfo);
 
         // Assert
-        verify(residentMapper, times(1)).update(updateResidentInfo, resident);
-        verify(residentRepository, times(1)).persist(resident);
+        verify(residentMapper, times(1)).update(updateResidentInfo, primaryResident);
+        verify(residentRepository, times(1)).persist(primaryResident);
     }
 }

@@ -9,7 +9,7 @@ import io.quarkus.test.h2.H2DatabaseTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
-import org.rent.circle.resident.api.persistence.model.Resident;
+import org.rent.circle.resident.api.persistence.model.PrimaryResident;
 
 @QuarkusTest
 @QuarkusTestResource(H2DatabaseTestResource.class)
@@ -24,7 +24,7 @@ public class ResidentRepositoryTest {
         // Arrange
 
         // Act
-        Resident result = residentRepository.findByEmail("notfound@email.com");
+        PrimaryResident result = residentRepository.findByEmail("notfound@email.com");
 
         // Assert
         assertNull(result);
@@ -32,11 +32,11 @@ public class ResidentRepositoryTest {
 
     @Test
     @TestTransaction
-    public void findResidentByEmail_WhenResidentDoesExist_ShouldReturnResident() {
+    public void findResidentByEmail_WhenResidentDoesExist_ShouldReturnPrimaryResident() {
         // Arrange
 
         // Act
-        Resident result = residentRepository.findByEmail("firstresident@email.com");
+        PrimaryResident result = residentRepository.findByEmail("firstresident@email.com");
 
         // Assert
         assertNotNull(result);
@@ -48,7 +48,7 @@ public class ResidentRepositoryTest {
         // Arrange
 
         // Act
-        Resident result = residentRepository.findByUserId("invalid_user");
+        PrimaryResident result = residentRepository.findByUserId("invalid_user");
 
         // Assert
         assertNull(result);
@@ -56,11 +56,11 @@ public class ResidentRepositoryTest {
 
     @Test
     @TestTransaction
-    public void findResidentByUserId_WhenResidentDoesExist_ShouldReturnResident() {
+    public void findResidentByUserId_WhenResidentDoesExist_ShouldReturnPrimaryResident() {
         // Arrange
 
         // Act
-        Resident result = residentRepository.findByUserId("auth_user");
+        PrimaryResident result = residentRepository.findByUserId("auth_user");
 
         // Assert
         assertNotNull(result);
@@ -72,7 +72,7 @@ public class ResidentRepositoryTest {
         // Arrange
 
         // Act
-        Resident result = residentRepository.findByIdAndManagerId(100L, "invalid_user");
+        PrimaryResident result = residentRepository.findByIdAndManagerId(100L, "invalid_user");
 
         // Assert
         assertNull(result);
@@ -80,11 +80,11 @@ public class ResidentRepositoryTest {
 
     @Test
     @TestTransaction
-    public void findResidentByIdAndManagerId_WhenResidentDoesExist_ShouldReturnResident() {
+    public void findResidentByIdAndManagerId_WhenResidentDoesExist_ShouldReturnPrimaryResident() {
         // Arrange
 
         // Act
-        Resident result = residentRepository.findByIdAndManagerId(100L, "auth_user");
+        PrimaryResident result = residentRepository.findByIdAndManagerId(100L, "auth_user");
 
         // Assert
         assertNotNull(result);
