@@ -7,6 +7,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -19,20 +21,12 @@ import org.rent.circle.resident.api.persistence.BaseModel;
 @Table(name = "resident")
 @Setter
 @Getter
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Resident extends BaseModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "manager_id")
-    private String managerId;
-
-    @Column(name = "property_id")
-    private Long propertyId;
-
-    @Column(name = "user_id")
-    private String userId;
 
     @Column(name = "preferred_name")
     private String preferredName;
@@ -45,10 +39,6 @@ public class Resident extends BaseModel {
 
     @Column(name = "phone")
     private String phone;
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "resident_id", referencedColumnName = "id", nullable = false)
-    private List<CoResident> coResidents;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "resident_id", referencedColumnName = "id", nullable = false)
