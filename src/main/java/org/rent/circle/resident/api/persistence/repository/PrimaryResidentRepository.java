@@ -6,7 +6,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import org.rent.circle.resident.api.persistence.model.PrimaryResident;
 
 @ApplicationScoped
-public class ResidentRepository implements PanacheRepository<PrimaryResident> {
+public class PrimaryResidentRepository implements PanacheRepository<PrimaryResident> {
 
     public PrimaryResident findByEmail(String email) {
         Parameters queryParams = Parameters.with("email", email);

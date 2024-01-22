@@ -19,14 +19,14 @@ import org.rent.circle.resident.api.dto.SaveResidentInfoDto;
 import org.rent.circle.resident.api.dto.UpdateResidentDto;
 import org.rent.circle.resident.api.dto.VehicleDto;
 import org.rent.circle.resident.api.persistence.model.PrimaryResident;
-import org.rent.circle.resident.api.persistence.repository.ResidentRepository;
+import org.rent.circle.resident.api.persistence.repository.PrimaryResidentRepository;
 import org.rent.circle.resident.api.service.mapper.ResidentMapper;
 
 @QuarkusTest
 public class ResidentServiceTest {
 
     @InjectMock
-    ResidentRepository residentRepository;
+    PrimaryResidentRepository primaryResidentRepository;
 
     @InjectMock
     ResidentMapper residentMapper;
@@ -72,7 +72,7 @@ public class ResidentServiceTest {
         // Arrange
         String managerId = "abc123";
         long residentId = 1;
-        when(residentRepository.findByIdAndManagerId(residentId, managerId)).thenReturn(null);
+        when(primaryResidentRepository.findByIdAndManagerId(residentId, managerId)).thenReturn(null);
         when(residentMapper.toDto(null)).thenReturn(null);
 
         // Act
@@ -98,7 +98,7 @@ public class ResidentServiceTest {
             .phone("1234567890")
             .build();
 
-        when(residentRepository.findByIdAndManagerId(residentId, managerId)).thenReturn(primaryResident);
+        when(primaryResidentRepository.findByIdAndManagerId(residentId, managerId)).thenReturn(primaryResident);
         when(residentMapper.toDto(primaryResident)).thenReturn(residentDto);
 
         // Act
@@ -112,7 +112,7 @@ public class ResidentServiceTest {
     public void getResidentByEmail_WhenResidentWithGivenIdCantBeFound_ShouldReturnNull() {
         // Arrange
         String residentEmail = "resident@email.com";
-        when(residentRepository.findByEmail(residentEmail)).thenReturn(null);
+        when(primaryResidentRepository.findByEmail(residentEmail)).thenReturn(null);
         when(residentMapper.toDto(null)).thenReturn(null);
 
         // Act
@@ -138,7 +138,7 @@ public class ResidentServiceTest {
             .phone("1234567890")
             .build();
 
-        when(residentRepository.findByEmail(residentEmail)).thenReturn(primaryResident);
+        when(primaryResidentRepository.findByEmail(residentEmail)).thenReturn(primaryResident);
         when(residentMapper.toDto(primaryResident)).thenReturn(residentDto);
 
         // Act
@@ -153,14 +153,14 @@ public class ResidentServiceTest {
         // Arrange
         String userId = "123";
         UpdateResidentDto updateResidentDto = UpdateResidentDto.builder().build();
-        when(residentRepository.findByUserId(userId)).thenReturn(null);
+        when(primaryResidentRepository.findByUserId(userId)).thenReturn(null);
 
         // Act
         residentService.updateResidentInfo(userId, updateResidentDto);
 
         // Assert
         verify(residentMapper, never()).update(updateResidentDto, null);
-        verify(residentRepository, never()).persist(Mockito.any(PrimaryResident.class));
+        verify(primaryResidentRepository, never()).persist(Mockito.any(PrimaryResident.class));
     }
 
     @Test
@@ -176,13 +176,13 @@ public class ResidentServiceTest {
             .preferredName("Updated Name")
             .phone("9876543210")
             .build();
-        when(residentRepository.findByUserId(userId)).thenReturn(primaryResident);
+        when(primaryResidentRepository.findByUserId(userId)).thenReturn(primaryResident);
 
         // Act
         residentService.updateResidentInfo(userId, updateResidentInfo);
 
         // Assert
         verify(residentMapper, times(1)).update(updateResidentInfo, primaryResident);
-        verify(residentRepository, times(1)).persist(primaryResident);
+        verify(primaryResidentRepository, times(1)).persist(primaryResident);
     }
 }

@@ -13,10 +13,10 @@ import org.rent.circle.resident.api.persistence.model.PrimaryResident;
 
 @QuarkusTest
 @QuarkusTestResource(H2DatabaseTestResource.class)
-public class ResidentRepositoryTest {
+public class PrimaryResidentRepositoryTest {
 
     @Inject
-    ResidentRepository residentRepository;
+    PrimaryResidentRepository primaryResidentRepository;
 
     @Test
     @TestTransaction
@@ -24,7 +24,7 @@ public class ResidentRepositoryTest {
         // Arrange
 
         // Act
-        PrimaryResident result = residentRepository.findByEmail("notfound@email.com");
+        PrimaryResident result = primaryResidentRepository.findByEmail("notfound@email.com");
 
         // Assert
         assertNull(result);
@@ -36,7 +36,7 @@ public class ResidentRepositoryTest {
         // Arrange
 
         // Act
-        PrimaryResident result = residentRepository.findByEmail("firstresident@email.com");
+        PrimaryResident result = primaryResidentRepository.findByEmail("firstresident@email.com");
 
         // Assert
         assertNotNull(result);
@@ -48,7 +48,7 @@ public class ResidentRepositoryTest {
         // Arrange
 
         // Act
-        PrimaryResident result = residentRepository.findByUserId("invalid_user");
+        PrimaryResident result = primaryResidentRepository.findByUserId("invalid_user");
 
         // Assert
         assertNull(result);
@@ -60,7 +60,7 @@ public class ResidentRepositoryTest {
         // Arrange
 
         // Act
-        PrimaryResident result = residentRepository.findByUserId("auth_user");
+        PrimaryResident result = primaryResidentRepository.findByUserId("auth_user");
 
         // Assert
         assertNotNull(result);
@@ -72,7 +72,7 @@ public class ResidentRepositoryTest {
         // Arrange
 
         // Act
-        PrimaryResident result = residentRepository.findByIdAndManagerId(100L, "invalid_user");
+        PrimaryResident result = primaryResidentRepository.findByIdAndManagerId(100L, "invalid_user");
 
         // Assert
         assertNull(result);
@@ -84,7 +84,7 @@ public class ResidentRepositoryTest {
         // Arrange
 
         // Act
-        PrimaryResident result = residentRepository.findByIdAndManagerId(100L, "auth_user");
+        PrimaryResident result = primaryResidentRepository.findByIdAndManagerId(100L, "auth_user");
 
         // Assert
         assertNotNull(result);
