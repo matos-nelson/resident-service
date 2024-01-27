@@ -5,15 +5,15 @@ import org.force66.beantester.BeanTester;
 import org.junit.jupiter.api.Test;
 
 @QuarkusTest
-public class ResidentDtoTest {
+public class PrimaryResidentDtoTest {
 
     @Test
-    public void ResidentDto_SettersAndGetters_ShouldWork() {
+    public void PrimaryResidentDto_SettersAndGetters_ShouldWork() {
         // Arrange
         BeanTester beanTester = new BeanTester();
 
         // Act
-        beanTester.testBean(ResidentDto.class);
+        beanTester.testBean(PrimaryResidentDto.class);
 
         // Assert
 

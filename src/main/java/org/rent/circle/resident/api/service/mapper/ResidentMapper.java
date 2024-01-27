@@ -4,7 +4,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.ReportingPolicy;
 import org.rent.circle.resident.api.dto.CoResidentDto;
-import org.rent.circle.resident.api.dto.ResidentDto;
+import org.rent.circle.resident.api.dto.PrimaryResidentDto;
 import org.rent.circle.resident.api.dto.SaveCoResidentInfoDto;
 import org.rent.circle.resident.api.dto.SaveResidentInfoDto;
 import org.rent.circle.resident.api.dto.UpdateResidentDto;
@@ -21,7 +21,7 @@ public interface ResidentMapper {
 
     void update(UpdateResidentDto updateResidentInfo, @MappingTarget Resident resident);
 
-    ResidentDto toDto(PrimaryResident resident);
+    PrimaryResidentDto toDto(PrimaryResident resident);
 
     CoResidentDto toCoResidentDto(CoResident coResident);
 }

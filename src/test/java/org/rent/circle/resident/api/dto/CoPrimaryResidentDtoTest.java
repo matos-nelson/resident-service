@@ -5,7 +5,7 @@ import org.force66.beantester.BeanTester;
 import org.junit.jupiter.api.Test;
 
 @QuarkusTest
-public class CoResidentDtoTest {
+public class CoPrimaryResidentDtoTest {
 
     @Test
     public void CoResidentDto_SettersAndGetters_ShouldWork() {

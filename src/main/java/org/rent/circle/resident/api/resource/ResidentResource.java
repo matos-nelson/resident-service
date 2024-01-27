@@ -16,7 +16,7 @@ import jakarta.ws.rs.core.MediaType;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.microprofile.jwt.JsonWebToken;
-import org.rent.circle.resident.api.dto.ResidentDto;
+import org.rent.circle.resident.api.dto.PrimaryResidentDto;
 import org.rent.circle.resident.api.dto.SaveResidentInfoDto;
 import org.rent.circle.resident.api.dto.UpdateResidentDto;
 import org.rent.circle.resident.api.service.ResidentService;
@@ -39,13 +39,13 @@ public class ResidentResource {
 
     @GET
     @Path("/{id}")
-    public ResidentDto getResident(@NotNull @PathParam("id") long residentId) {
+    public PrimaryResidentDto getResident(@NotNull @PathParam("id") long residentId) {
         return residentService.getResident(residentId, jwt.getName());
     }
 
     @GET
     @Path("/email/{email}")
-    public ResidentDto getResident(@NotNull @NotBlank @Email @PathParam("email") String residentEmail) {
+    public PrimaryResidentDto getResident(@NotNull @NotBlank @Email @PathParam("email") String residentEmail) {
         return residentService.getResidentByEmail(residentEmail);
     }
 

@@ -14,7 +14,7 @@ import jakarta.inject.Inject;
 import java.util.Collections;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.rent.circle.resident.api.dto.ResidentDto;
+import org.rent.circle.resident.api.dto.PrimaryResidentDto;
 import org.rent.circle.resident.api.dto.SaveResidentInfoDto;
 import org.rent.circle.resident.api.dto.UpdateResidentDto;
 import org.rent.circle.resident.api.dto.VehicleDto;
@@ -76,7 +76,7 @@ public class ResidentServiceTest {
         when(residentMapper.toDto(null)).thenReturn(null);
 
         // Act
-        ResidentDto result = residentService.getResident(residentId, managerId);
+        PrimaryResidentDto result = residentService.getResident(residentId, managerId);
 
         // Assert
         assertNull(result);
@@ -91,7 +91,7 @@ public class ResidentServiceTest {
         PrimaryResident primaryResident = new PrimaryResident();
         primaryResident.setId(residentId);
 
-        ResidentDto residentDto = ResidentDto.builder()
+        PrimaryResidentDto primaryResidentDto = PrimaryResidentDto.builder()
             .propertyId(1L)
             .fullName("My Resident")
             .email("resident@email.com")
@@ -99,13 +99,13 @@ public class ResidentServiceTest {
             .build();
 
         when(primaryResidentRepository.findByIdAndManagerId(residentId, managerId)).thenReturn(primaryResident);
-        when(residentMapper.toDto(primaryResident)).thenReturn(residentDto);
+        when(residentMapper.toDto(primaryResident)).thenReturn(primaryResidentDto);
 
         // Act
-        ResidentDto result = residentService.getResident(residentId, managerId);
+        PrimaryResidentDto result = residentService.getResident(residentId, managerId);
 
         // Assert
-        assertEquals(residentDto, result);
+        assertEquals(primaryResidentDto, result);
     }
 
     @Test
@@ -116,7 +116,7 @@ public class ResidentServiceTest {
         when(residentMapper.toDto(null)).thenReturn(null);
 
         // Act
-        ResidentDto result = residentService.getResidentByEmail(residentEmail);
+        PrimaryResidentDto result = residentService.getResidentByEmail(residentEmail);
 
         // Assert
         assertNull(result);
@@ -131,7 +131,7 @@ public class ResidentServiceTest {
         primaryResident.setId(100L);
         primaryResident.setEmail(residentEmail);
 
-        ResidentDto residentDto = ResidentDto.builder()
+        PrimaryResidentDto primaryResidentDto = PrimaryResidentDto.builder()
             .propertyId(1L)
             .fullName("My Resident")
             .email("resident@email.com")
@@ -139,13 +139,13 @@ public class ResidentServiceTest {
             .build();
 
         when(primaryResidentRepository.findByEmail(residentEmail)).thenReturn(primaryResident);
-        when(residentMapper.toDto(primaryResident)).thenReturn(residentDto);
+        when(residentMapper.toDto(primaryResident)).thenReturn(primaryResidentDto);
 
         // Act
-        ResidentDto result = residentService.getResidentByEmail(residentEmail);
+        PrimaryResidentDto result = residentService.getResidentByEmail(residentEmail);
 
         // Assert
-        assertEquals(residentDto, result);
+        assertEquals(primaryResidentDto, result);
     }
 
     @Test

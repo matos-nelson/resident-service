@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResidentDto {
+public class PrimaryResidentDto {
 
     private Long id;
     private Long propertyId;

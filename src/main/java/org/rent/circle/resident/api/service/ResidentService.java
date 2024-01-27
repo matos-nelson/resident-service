@@ -5,7 +5,7 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.rent.circle.resident.api.dto.ResidentDto;
+import org.rent.circle.resident.api.dto.PrimaryResidentDto;
 import org.rent.circle.resident.api.dto.SaveResidentInfoDto;
 import org.rent.circle.resident.api.dto.UpdateResidentDto;
 import org.rent.circle.resident.api.persistence.model.PrimaryResident;
@@ -33,12 +33,12 @@ public class ResidentService {
         return primaryResident.getId();
     }
 
-    public ResidentDto getResident(long id, String managerId) {
+    public PrimaryResidentDto getResident(long id, String managerId) {
         PrimaryResident primaryResident = primaryResidentRepository.findByIdAndManagerId(id, managerId);
         return residentMapper.toDto(primaryResident);
     }
 
-    public ResidentDto getResidentByEmail(String email) {
+    public PrimaryResidentDto getResidentByEmail(String email) {
         PrimaryResident primaryResident = primaryResidentRepository.findByEmail(email);
         return residentMapper.toDto(primaryResident);
     }

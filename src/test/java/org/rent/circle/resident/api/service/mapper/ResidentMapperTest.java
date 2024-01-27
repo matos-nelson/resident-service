@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.rent.circle.resident.api.dto.CoResidentDto;
-import org.rent.circle.resident.api.dto.ResidentDto;
+import org.rent.circle.resident.api.dto.PrimaryResidentDto;
 import org.rent.circle.resident.api.dto.SaveCoResidentInfoDto;
 import org.rent.circle.resident.api.dto.SaveResidentInfoDto;
 import org.rent.circle.resident.api.dto.UpdateResidentDto;
@@ -120,7 +120,7 @@ public class ResidentMapperTest {
         // Arrange
 
         // Act
-        ResidentDto result = residentMapper.toDto(null);
+        PrimaryResidentDto result = residentMapper.toDto(null);
 
         // Assert
         assertNull(result);
@@ -137,7 +137,7 @@ public class ResidentMapperTest {
         resident.setPhone("1234567890");
 
         // Act
-        ResidentDto result = residentMapper.toDto(resident);
+        PrimaryResidentDto result = residentMapper.toDto(resident);
 
         // Assert
         assertNotNull(result);
@@ -163,7 +163,7 @@ public class ResidentMapperTest {
         primaryResident.setVehicles(Collections.singletonList(vehicle));
 
         // Act
-        ResidentDto result = residentMapper.toDto(primaryResident);
+        PrimaryResidentDto result = residentMapper.toDto(primaryResident);
 
         // Assert
         assertNotNull(result);
@@ -188,7 +188,7 @@ public class ResidentMapperTest {
         primaryResident.setCoResidents(Collections.singletonList(coResident));
 
         // Act
-        ResidentDto result = residentMapper.toDto(primaryResident);
+        PrimaryResidentDto result = residentMapper.toDto(primaryResident);
 
         // Assert
         assertNotNull(result);
