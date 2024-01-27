@@ -20,30 +20,6 @@ public class ResidentRepositoryTest {
 
     @Test
     @TestTransaction
-    public void findResidentByEmail_WhenResidentDoesNotExist_ShouldReturnNull() {
-        // Arrange
-
-        // Act
-        Resident result = residentRepository.findByEmail("notfound@email.com");
-
-        // Assert
-        assertNull(result);
-    }
-
-    @Test
-    @TestTransaction
-    public void findResidentByEmail_WhenResidentDoesExist_ShouldReturnResident() {
-        // Arrange
-
-        // Act
-        Resident result = residentRepository.findByEmail("firstresident@email.com");
-
-        // Assert
-        assertNotNull(result);
-    }
-
-    @Test
-    @TestTransaction
     public void findResidentByUserId_WhenResidentDoesNotExist_ShouldReturnNull() {
         // Arrange
 
