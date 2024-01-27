@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.rent.circle.resident.api.dto.ResidentDto;
 import org.rent.circle.resident.api.dto.SaveResidentInfoDto;
-import org.rent.circle.resident.api.dto.UpdateResidentDto;
 import org.rent.circle.resident.api.persistence.model.Resident;
 import org.rent.circle.resident.api.persistence.repository.ResidentRepository;
 import org.rent.circle.resident.api.service.mapper.ResidentMapper;
@@ -36,22 +35,5 @@ public class ResidentService {
     public ResidentDto getResident(long id, String managerId) {
         Resident resident = residentRepository.findByIdAndManagerId(id, managerId);
         return residentMapper.toDto(resident);
-    }
-
-    public ResidentDto getResidentByEmail(String email) {
-        Resident resident = residentRepository.findByEmail(email);
-        return residentMapper.toDto(resident);
-    }
-
-    @Transactional
-    public void updateResidentInfo(String userId, UpdateResidentDto updateResidentInfo) {
-        Resident resident = residentRepository.findByUserId(userId);
-        if (resident == null) {
-            log.info("Could Not Find Resident For Update");
-            return;
-        }
-
-        residentMapper.update(updateResidentInfo, resident);
-        residentRepository.persist(resident);
     }
 }

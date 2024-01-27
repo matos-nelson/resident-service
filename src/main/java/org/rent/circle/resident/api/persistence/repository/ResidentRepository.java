@@ -8,13 +8,6 @@ import org.rent.circle.resident.api.persistence.model.Resident;
 @ApplicationScoped
 public class ResidentRepository implements PanacheRepository<Resident> {
 
-    public Resident findByEmail(String email) {
-        Parameters queryParams = Parameters.with("email", email);
-        return find("email = :email", queryParams)
-            .singleResultOptional()
-            .orElse(null);
-    }
-
     public Resident findByUserId(String userId) {
         return find("userId", userId).firstResult();
     }

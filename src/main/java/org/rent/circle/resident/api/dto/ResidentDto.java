@@ -1,6 +1,5 @@
 package org.rent.circle.resident.api.dto;
 
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,9 +15,5 @@ public class ResidentDto {
 
     private Long id;
     private Long propertyId;
-    private String preferredName;
-    private String fullName;
-    private String email;
-    private String phone;
-    private List<VehicleDto> vehicles;
+    private Long tenantId;
 }
